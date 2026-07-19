@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Untuk Kamu ❤️</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:linear-gradient(135deg,#ff4d6d,#ff758f,#ffc2d1);
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.container{
+    width:90%;
+    max-width:600px;
+    background:rgba(255,255,255,.15);
+    backdrop-filter:blur(10px);
+    padding:35px;
+    border-radius:20px;
+    text-align:center;
+    color:white;
+    box-shadow:0 0 30px rgba(0,0,0,.2);
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+p{
+    font-size:18px;
+    line-height:1.7;
+}
+
+button{
+    margin-top:30px;
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+    cursor:pointer;
+    font-size:18px;
+    font-weight:bold;
+    transition:.3s;
+}
+
+#next{
+    background:white;
+    color:#ff3366;
+}
+
+#yes{
+    background:#00d26a;
+    color:white;
+    display:none;
+}
+
+#no{
+    background:#ff3b30;
+    color:white;
+    display:none;
+    position:absolute;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.heart{
+    position:absolute;
+    color:#ff1744;
+    animation:fall linear forwards;
+    font-size:20px;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-10vh);
+    }
+    to{
+        transform:translateY(110vh);
+    }
+}
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:blink 2s infinite;
+}
+
+@keyframes blink{
+    50%{
+        opacity:.2;
+        transform:scale(.5);
+    }
+}
+.mouse-love{
+
+position:fixed;
+
+pointer-events:none;
+
+font-size:18px;
+
+animation:fly 1s forwards;
+
+}
+
+@keyframes fly{
+
+to{
+
+transform:translateY(-60px);
+
+opacity:0;
+
+}
+
+}
+@keyframes pop{
+
+0%{
+
+transform:scale(.5);
+
+opacity:0;
+
+}
+
+100%{
+
+transform:scale(1);
+
+opacity:1;
+
+}
+
+}
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:100%;
+
+height:100%;
+
+backdrop-filter:blur(10px);
+
+pointer-events:none;
+
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h1 id="title">Hai Cantik ❤️</h1>
+<h3 id="timer"></h3>
+<p id="text">
+Aku cuma mau minta waktu sebentar...
+</p>
+
+<button id="next">Lanjut ➜</button>
+
+<button id="yes">IYA ❤️</button>
+<button id="no">ENGGA 😅</button>
+
+</div>
+<audio id="music" loop>
+<source src="Give Me Your Forever - Zack Tabudlo Lirik Lagu Terjemahan (1).mp3">
+</audio>
+
+<button id="playMusic">
+🎵 Putar Musik
+</button>
+
+<script>
+
+const title=document.getElementById("title");
+const text=document.getElementById("text");
+const next=document.getElementById("next");
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+
+let step=0;
+
+const story=[
+"Sejak pertama kenal sama kamu...",
+"Aku selalu ngerasa hari-hariku jadi lebih seru.",
+"Kamu bikin aku senyum tanpa alasan.",
+"Aku nyaman ngobrol sama kamu.",
+"Aku bersyukur bisa kenal sama orang sebaik kamu.",
+"Dan hari ini aku cuma mau jujur...",
+"Aku suka sama kamu.",
+"Mau gak... jadi pacarku? ❤️"
+];
+
+next.onclick=()=>{
+
+step++;
+
+if(step<story.length){
+
+text.innerHTML=story[step];
+
+}else{
+
+title.innerHTML="❤️";
+text.innerHTML="<b>Mau gak jadi pacarku?</b>";
+
+next.style.display="none";
+yes.style.display="inline-block";
+no.style.display="inline-block";
+
+moveNo();
+}
+
+}
+
+function moveNo(){
+
+no.addEventListener("mouseover",()=>{
+
+let x=Math.random()*(window.innerWidth-150);
+let y=Math.random()*(window.innerHeight-100);
+
+no.style.left=x+"px";
+no.style.top=y+"px";
+
+});
+
+}
+
+yes.onclick=()=>{
+
+title.innerHTML="YEAYYY ❤️🥹";
+
+text.innerHTML=`
+<h2>Makasih yaa ❤️</h2>
+<p>
+Mulai hari ini semoga kita bisa saling jaga,
+saling support, dan bikin banyak kenangan indah bareng.
+Aku janji bakal berusaha jadi yang terbaik buat kamu.
+🤍
+</p>
+`;
+
+yes.style.display="none";
+no.style.display="none";
+
+for(let i=0;i<150;i++){
+
+setTimeout(createHeart,i*80);
+
+}
+
+}
+
+function createHeart(){
+
+const heart=document.createElement("div");
+
+heart.className="heart";
+heart.innerHTML="❤️";
+
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*25+15)+"px";
+heart.style.animationDuration=(Math.random()*3+2)+"s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+
+heart.remove();
+
+},5000);
+
+}
+function typeWriter(text, element, speed = 45) {
+    element.innerHTML = "";
+    let i = 0;
+
+    function typing() {
+        if (i < text.length) {
+            element.innerHTML += text.charAt(i);
+            i++;
+            setTimeout(typing, speed);
+        }
+    }
+
+    typing();
+}
+text.innerHTML = story[step];
+typeWriter(story[step], text);
+for(let i=0;i<120;i++){
+
+const star=document.createElement("div");
+
+star.className="star";
+
+star.style.left=Math.random()*100+"vw";
+star.style.top=Math.random()*100+"vh";
+
+star.style.animationDelay=Math.random()*2+"s";
+
+document.body.appendChild(star);
+
+}
+document.addEventListener("mousemove",(e)=>{
+
+const love=document.createElement("div");
+
+love.className="mouse-love";
+
+love.innerHTML="❤️";
+
+love.style.left=e.clientX+"px";
+
+love.style.top=e.clientY+"px";
+
+document.body.appendChild(love);
+
+setTimeout(()=>{
+
+love.remove();
+
+},900);
+
+});
+document.getElementById("playMusic").onclick=()=>{
+
+document.getElementById("music").play();
+
+}
+const start=new Date("2025-01-01");
+
+setInterval(()=>{
+
+const now=new Date();
+
+const diff=now-start;
+
+const day=Math.floor(diff/1000/60/60/24);
+
+timer.innerHTML="Aku udah suka kamu selama "+day+" hari ❤️";
+
+},1000);
+function firework(){
+
+for(let i=0;i<200;i++){
+
+const f=document.createElement("div");
+
+f.innerHTML="✨";
+
+f.style.position="fixed";
+
+f.style.left="50%";
+
+f.style.top="50%";
+
+f.style.fontSize=Math.random()*30+15+"px";
+
+f.style.transform=`translate(${Math.random()*600-300}px,${Math.random()*600-300}px)`;
+
+document.body.appendChild(f);
+
+setTimeout(()=>f.remove(),2000);
+
+}
+
+}
+firework();
+let scale=1;
+
+no.addEventListener("mouseover",()=>{
+
+scale+=0.15;
+
+yes.style.transform=`scale(${scale})`;
+
+});
+title.style.animation="pop .8s";
+text.innerHTML=`
+
+<h2>❤️ Terima Kasih ❤️</h2>
+
+<p style="line-height:32px; margin-top:20px;">
+
+Hari ini mungkin cuma sebuah kata "Iya".
+
+Tapi buat aku...
+
+Itu adalah awal dari cerita yang pengen aku tulis bareng kamu.
+
+Aku nggak janji bakal selalu benar.
+
+Aku juga nggak janji bakal jadi orang yang sempurna.
+
+Tapi aku janji...
+
+Aku bakal selalu berusaha jadi alasan kamu tersenyum.
+
+Kalau suatu hari nanti kita bertengkar,
+
+tolong jangan pergi.
+
+Pegang tanganku...
+
+Kita selesaikan semuanya sama-sama.
+
+Karena mulai hari ini...
+
+Aku ingin menjadikan kamu rumah,
+tempat aku pulang,
+dan alasan aku terus berjuang.
+
+❤️
+
+Aku sayang kamu.
+
+</p>
+
+`;
+
+
+</script>
+
+</body>
+</html>
